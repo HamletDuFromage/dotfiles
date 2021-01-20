@@ -3,3 +3,5 @@
 !fish/
 fish/private_aliases.fish
 !.gitignore
+!LICENSE
+!README.md
