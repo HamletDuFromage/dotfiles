@@ -10,8 +10,10 @@ alias ....="cd ../../.."
 alias .....="cd ../../../.."
 
 #use rust stuff to see what's the fuss is about
-#alias cat="bat"
+alias cat="bat -p"
+alias ls="exa --git"
 alias l="exa --long --header --git"
+alias la="exa -a --long --header --git"
 
 # Always enable colored `grep` output
 # Note: `GREP_OPTIONS="--color=auto"` is deprecated, hence the alias usage.
@@ -30,6 +32,4 @@ alias mkd="mkdir -pv"
 alias yt="youtube-dl --add-metadata -i"
 
 alias myip="curl ipinfo.io/ip"
-alias localip="ifconfig | grep inet | head -n 1 | awk '$1=$1'"
-
 

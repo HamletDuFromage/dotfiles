@@ -39,7 +39,7 @@ function fish_prompt --description 'Write out the prompt'
     set -q fish_prompt_pwd_dir_length
     or set -lx fish_prompt_pwd_dir_length 0
 
-    printf '%s[%s] %s%s%s%s%s@%s%s %s%s %s%s%s%s' (set_color cyan) (date "+%H:%M") (set_color -o white) '❰' (set_color normal) $USER (set_color normal) (prompt_hostname) (set_color -o blue) (prompt_pwd) (set_color white) $git_info (set_color white) '❱' (set_color white)
+    printf '%s[%s] %s%s%s%s%s@%s%s %s%s%s%s%s%s' (set_color cyan) (date "+%H:%M") (set_color -o white) '❰' (set_color normal) $USER (set_color normal) (prompt_hostname) (set_color -o blue) (prompt_pwd) (set_color white) $git_info (set_color white) '❱' (set_color white)
     
     if test $laststatus -ne 0
         printf "%s✘" (set_color -o red)
