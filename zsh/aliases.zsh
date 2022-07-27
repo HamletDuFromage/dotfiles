@@ -52,7 +52,7 @@ pa-set() {
     for i in ${inputs[*]}; do pacmd move-sink-input $i $1 &>/dev/null; done
 }
 pa-cycle() {
-    echo lol
+    # cycle through output devices
     current=$(pacmd list-sinks | awk '/* index/ {print $3}')
     total=$(pactl list short sinks | wc -l)
     ((next = ($current + 1) % $total))
