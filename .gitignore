@@ -4,6 +4,7 @@
 fish/private_aliases.fish
 !zsh/
 zsh/private_aliases.zsh
+zsh/private_exports.zsh
 zsh/zsh-history*
 zsh/histfile
 !.gitignore
