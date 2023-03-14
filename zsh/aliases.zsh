@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-alias windscribe="sudo systemctl start windscribe && windscribe"
+#alias windscribe="sudo systemctl start windscribe && windscribe"
 alias upyay="yes '' | yay"
 alias uparu="paru -Syu --noconfirm && antigen update"
 alias upfish="fisher list | fisher update"
@@ -29,15 +29,35 @@ alias egrep='egrep --color=auto'
 # Verbosity and settings that you pretty much just always are going to want.
 alias cp="cp -iv"
 alias mv="mv -iv"
-alias rm="rm -vI"
+alias rm="trash-put -v"
 alias mkd="mkdir -pv"
 alias yt="youtube-dl --add-metadata -i"
 
 alias myip="dig @1.1.1.1 whoami.cloudflare TXT CH +short +tries=1 +timeout=3 | sed -e 's/^\"//' -e 's/\"$//'"
+alias mycountry="geoiplookup $(myip) | sed -E 's/GeoIP Country Edition: ([A-Z]{2}), [a-zA-Z]+/\1/'"
 
 #Get the last installed packages installed by pacman
 alias last-install="expac --timefmt='%Y-%m-%d %T' '%l\t%n' | sort -n"
 
+# Run software through wireguard netns
+wg-zsh () {
+    if [ "$1" ]
+    then
+        sudo ip netns exec $1 sudo -i -u $USER zsh
+    else
+        echo "Please specify a network namespace."
+    fi
+}
+
+wg-run () {
+    if [ "$*" ]
+    then
+        cmd=${@:2}
+        su -c "ip netns exec $1 su $USER -c '$cmd'"
+    else
+        wg-zsh $1
+    fi
+}
 # Run dolphin in the background and mute its output
 dolphin() { setsid /usr/bin/dolphin $1 >/dev/null 2>&1; }
 
