@@ -40,24 +40,27 @@ alias mycountry="geoiplookup $(myip) | sed -E 's/GeoIP Country Edition: ([A-Z]{2
 alias last-install="expac --timefmt='%Y-%m-%d %T' '%l\t%n' | sort -n"
 
 # Run software through wireguard netns
-wg-zsh () {
-    if [ "$1" ]
+wg-run () {
+    cmd=${@:2}
+    if [ "$cmd" ]
     then
-        sudo ip netns exec $1 sudo -i -u $USER zsh
+        sudo ip netns exec $1 sudo -u "$USER"\
+            "HOME=$HOME"\
+            "PULSE_SERVER=/run/user/$(id -u)/pulse/native"\
+            "PULSE_COOKIE=$HOME/.config/pulse/cookie"\
+            ${@:2}
+    elif [ "$1" ]
+    then
+        wg-run $1 zsh
     else
         echo "Please specify a network namespace."
     fi
 }
 
-wg-run () {
-    if [ "$*" ]
-    then
-        cmd=${@:2}
-        su -c "ip netns exec $1 su $USER -c '$cmd'"
-    else
-        wg-zsh $1
-    fi
+wg-zsh () {
+    wg-run $1
 }
+
 # Run dolphin in the background and mute its output
 dolphin() { setsid /usr/bin/dolphin $1 >/dev/null 2>&1; }
 
