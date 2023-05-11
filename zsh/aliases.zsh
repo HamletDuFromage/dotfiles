@@ -61,8 +61,18 @@ wg-zsh () {
     wg-run $1
 }
 
+mute-run () {
+    cmd=${@:1}
+    if [ "$cmd" ]
+    then
+        setsid ${@:1} > /dev/null 2>&1;
+    else
+        echo "Please provide an argument"
+    fi
+}
+
 # Run dolphin in the background and mute its output
-dolphin() { setsid /usr/bin/dolphin $1 >/dev/null 2>&1; }
+dolphin() { mute-run /usr/bin/dolphin $1; }
 
 # Control pulseaudio devices
 pa-list() { pacmd list-sinks | awk '/index/ || /name:/'; }

@@ -36,7 +36,7 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#777777"
 ZSH_AUTOSUGGEST_USE_ASYNC=true
 ZSH_AUTOSUGGEST_STRATEGY=(histdb_most completion)
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
-export HISTDB_FILE=$HOME/.config/zsh/zsh-history.db
+HISTDB_FILE=$HOME/.config/zsh/zsh-history.db
 
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 
