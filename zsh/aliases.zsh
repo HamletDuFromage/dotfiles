@@ -44,11 +44,7 @@ wg-run () {
     cmd=${@:2}
     if [ "$cmd" ]
     then
-        sudo ip netns exec $1 sudo -u "$USER"\
-            "HOME=$HOME"\
-            "PULSE_SERVER=/run/user/$(id -u)/pulse/native"\
-            "PULSE_COOKIE=$HOME/.config/pulse/cookie"\
-            ${@:2}
+        sudo -E ip netns exec $1 sudo -E -u "$USER" ${@:2}
     elif [ "$1" ]
     then
         wg-run $1 zsh
@@ -73,6 +69,16 @@ mute-run () {
 
 # Run dolphin in the background and mute its output
 dolphin() { mute-run /usr/bin/dolphin $1; }
+
+# Run dolphin in the background and mute its output
+konsole() { 
+    if [ "$1" ]
+    then
+        mute-run /usr/bin/konsole --workdir $1;
+    else
+        mute-run /usr/bin/konsole
+    fi
+}
 
 # Control pulseaudio devices
 pa-list() { pacmd list-sinks | awk '/index/ || /name:/'; }
@@ -107,4 +113,19 @@ pa-playbackset() {
     pacmd set-default-sink "$2" &>/dev/null
     # apply changes to one running app to use the new output device
     pacmd move-sink-input "$1" "$2" &>/dev/null
+}
+
+# broot
+function br {
+    local cmd cmd_file code
+    cmd_file=$(mktemp)
+    if broot --outcmd "$cmd_file" "$@"; then
+        cmd=$(<"$cmd_file")
+        command rm -f "$cmd_file"
+        eval "$cmd"
+    else
+        code=$?
+        command rm -f "$cmd_file"
+        return "$code"
+    fi
 }
