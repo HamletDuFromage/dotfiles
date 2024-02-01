@@ -7,6 +7,7 @@ zsh/private_aliases.zsh
 zsh/private_exports.zsh
 zsh/zsh-history*
 zsh/histfile
+!starship.toml
 !.gitignore
 !LICENSE
 !README.md
