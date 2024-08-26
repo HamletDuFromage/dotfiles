@@ -1,0 +1,32 @@
+# ~/.config/starship.toml
+
+format = """
+$username\
+$hostname\
+$custom\
+$kubernetes\
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_status\
+$hg_branch\
+$docker_context\
+$package\
+$cmake\
+$env_var\
+$cmd_duration\
+$jobs\
+$time\
+$status\
+$character"""
+
+# Wait 10 milliseconds for starship to check files under the current directory.
+scan_timeout = 10
+
+# Disable the newline at the start of the prompt
+add_newline = false
+
+[custom.netns]
+command = 'ip netns identify $$'
+when = 'true'
